@@ -23,8 +23,10 @@ RUN apt-get update && \
 # 安装vscode-server
 RUN curl -fsSL https://code-server.dev/install.sh | sh && \
     mkdir -p /root/.local/share/code-server/User && \
-    echo '{"workbench.startupEditor":"none"}' > /root/.local/share/code-server/User/settings.json && \
-    code-server --install-extension Vue.volar && \
+    echo '{"workbench.startupEditor":"none"}' > /root/.local/share/code-server/User/settings.json
+
+# 安装VS Code扩展
+RUN code-server --install-extension Vue.volar && \
     code-server --install-extension bradlc.vscode-tailwindcss && \
     code-server --install-extension ms-vscode.vscode-typescript-next && \
     code-server --install-extension ms-vscode.vscode-eslint && \
