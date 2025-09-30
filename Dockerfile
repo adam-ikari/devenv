@@ -23,7 +23,19 @@ RUN apt-get update && \
 # 安装vscode-server
 RUN curl -fsSL https://code-server.dev/install.sh | sh && \
     mkdir -p /root/.local/share/code-server/User && \
-    echo '{"workbench.startupEditor":"none"}' > /root/.local/share/code-server/User/settings.json
+    echo '{"workbench.startupEditor":"none"}' > /root/.local/share/code-server/User/settings.json && \
+    code-server --install-extension Vue.volar && \
+    code-server --install-extension bradlc.vscode-tailwindcss && \
+    code-server --install-extension ms-vscode.vscode-typescript-next && \
+    code-server --install-extension ms-vscode.vscode-eslint && \
+    code-server --install-extension esbenp.prettier-vscode && \
+    code-server --install-extension ms-vscode.vscode-json && \
+    code-server --install-extension ms-vscode.vscode-html && \
+    code-server --install-extension ms-vscode.vscode-css && \
+    code-server --install-extension ms-vscode.cpptools && \
+    code-server --install-extension ms-vscode.cpptools-extension-pack && \
+    code-server --install-extension eamodio.gitlens && \
+    code-server --install-extension donjayamanne.githistory
 
 # 安装nvm和Node.js
 ENV NVM_DIR=/usr/local/nvm
@@ -69,16 +81,8 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /root/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && \
     git clone https://github.com/zsh-users/zsh-autosuggestions /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
-# 配置.zshrc
-RUN echo 'export ZSH="/root/.oh-my-zsh"' > /root/.zshrc && \
-    echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> /root/.zshrc && \
-    echo 'plugins=(git docker docker-compose npm yarn zsh-syntax-highlighting zsh-autosuggestions)' >> /root/.zshrc && \
-    echo 'source $ZSH/oh-my-zsh.sh' >> /root/.zshrc && \
-    echo 'export NVM_DIR="/usr/local/nvm"' >> /root/.zshrc && \
-    echo '[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"' >> /root/.zshrc && \
-    echo '[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"' >> /root/.zshrc && \
-    echo 'export PATH="/usr/local/bin:$PATH"' >> /root/.zshrc && \
-    echo 'eval "$(uv gen-shell-completion zsh)"' >> /root/.zshrc
+# 复制.zshrc模板并设置默认配置
+COPY zshrc.template /root/.zshrc
 
 # 设置默认shell为zsh
 RUN chsh -s $(which zsh)
