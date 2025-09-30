@@ -26,18 +26,18 @@ RUN curl -fsSL https://code-server.dev/install.sh | sh && \
     echo '{"workbench.startupEditor":"none"}' > /root/.local/share/code-server/User/settings.json
 
 # 安装VS Code扩展
-RUN code-server --install-extension Vue.volar && \
-    code-server --install-extension bradlc.vscode-tailwindcss && \
-    code-server --install-extension ms-vscode.vscode-typescript-next && \
-    code-server --install-extension ms-vscode.vscode-eslint && \
-    code-server --install-extension esbenp.prettier-vscode && \
-    code-server --install-extension ms-vscode.vscode-json && \
-    code-server --install-extension ms-vscode.vscode-html && \
-    code-server --install-extension ms-vscode.vscode-css && \
-    code-server --install-extension ms-vscode.cpptools && \
-    code-server --install-extension ms-vscode.cpptools-extension-pack && \
-    code-server --install-extension eamodio.gitlens && \
-    code-server --install-extension donjayamanne.githistory
+RUN code-server --install-extension Vue.volar || echo "Failed to install Vue.volar" && \
+    code-server --install-extension bradlc.vscode-tailwindcss || echo "Failed to install bradlc.vscode-tailwindcss" && \
+    code-server --install-extension ms-vscode.vscode-typescript-next || echo "Failed to install ms-vscode.vscode-typescript-next" && \
+    code-server --install-extension ms-vscode.vscode-eslint || echo "Failed to install ms-vscode.vscode-eslint" && \
+    code-server --install-extension esbenp.prettier-vscode || echo "Failed to install esbenp.prettier-vscode" && \
+    code-server --install-extension ms-vscode.vscode-json || echo "Failed to install ms-vscode.vscode-json" && \
+    code-server --install-extension ms-vscode.vscode-html || echo "Failed to install ms-vscode.vscode-html" && \
+    code-server --install-extension ms-vscode.vscode-css || echo "Failed to install ms-vscode.vscode-css" && \
+    code-server --install-extension ms-vscode.cpptools || echo "Failed to install ms-vscode.cpptools" && \
+    code-server --install-extension ms-vscode.cpptools-extension-pack || echo "Failed to install ms-vscode.cpptools-extension-pack" && \
+    code-server --install-extension eamodio.gitlens || echo "Failed to install eamodio.gitlens" && \
+    code-server --install-extension donjayamanne.githistory || echo "Failed to install donjayamanne.githistory"
 
 # 安装nvm和Node.js
 ENV NVM_DIR=/usr/local/nvm
