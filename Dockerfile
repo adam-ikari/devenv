@@ -44,8 +44,11 @@ ENV PATH=$NVM_DIR/versions/node/v${NODE_VERSION}/bin:$PATH
 ENV UV_INSTALL_DIR=/usr/local/bin
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# 安装Python 3.5到最新版本
-RUN $UV_INSTALL_DIR/uv python install 3.5 && \
+# 安装Python 3.8到最新版本
+RUN $UV_INSTALL_DIR/uv python install 3.8 && \
+    $UV_INSTALL_DIR/uv python install 3.9 && \
+    $UV_INSTALL_DIR/uv python install 3.10 && \
+    $UV_INSTALL_DIR/uv python install 3.11 && \
     $UV_INSTALL_DIR/uv python install 3.12 && \
     $UV_INSTALL_DIR/uv python install 3.13
 
